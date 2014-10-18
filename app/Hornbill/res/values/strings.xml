@@ -2,7 +2,9 @@
 <resources>
 
     <string name="app_name">Hornbill</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">设置</string>
+    <string name="step_count_begin">开始计步</string>
+    <string name="step_count_stop">停止计步</string>
+    <string name="step_count_text">步数:</string>
 
 </resources>
