@@ -6,5 +6,6 @@
     <string name="step_count_begin">开始计步</string>
     <string name="step_count_stop">停止计步</string>
     <string name="step_count_text">步数:</string>
+    <string name="clear_step">清零</string>
 
 </resources>

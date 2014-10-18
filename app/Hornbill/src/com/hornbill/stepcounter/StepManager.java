@@ -12,6 +12,7 @@ import com.hornbill.stepcounter.StepCounter.StepListener;
 
 public class StepManager {
     private Context mContext;
+    private boolean mIsWorking;
     private StepCounter mStepCounter;
     private StepListener mStepListener;
     private String mCurrentDayStepCountKey;
@@ -22,6 +23,7 @@ public class StepManager {
     public StepManager(Context context) {
         mContext = context;
         mListeners = new HashSet<StepCounter.StepListener>();
+        mIsWorking = false;
         init();
     }
 
@@ -30,6 +32,7 @@ public class StepManager {
         mStepCounter.setStepListener(mStepListener);
         int count = mStepSaver.readStep();
         mStepCounter.setStepCount(count);
+        mIsWorking = true;
 
         // 屏幕锁屏，开屏应怎样处理？
         /*
@@ -59,6 +62,7 @@ public class StepManager {
     public void stopWork() {
         mStepSaver.saveStep(mStepCounter.getStepCount());
         mStepCounter.unregisterSensor();
+        mIsWorking = false;
 
         /*
         PowerManager manager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
@@ -69,6 +73,10 @@ public class StepManager {
     // 清零计数器
     public void resetWork() {
         mStepSaver.saveStep(0);
+        if (mIsWorking) {
+            mStepCounter.setStepCount(0);
+            notifyUser(0);
+        }
     }
 
     public void destroy() {
@@ -121,11 +129,14 @@ public class StepManager {
         @Override
         public void onStep(int stepCount) {
             mStepSaver.saveStep(stepCount);
+            notifyUser(stepCount);
+        }
+    }
 
-            for (StepListener listener: mListeners) {
-                if (listener != null) {
-                    listener.onStep(stepCount);
-                }
+    private void notifyUser(int stepCount) {
+        for (StepListener listener: mListeners) {
+            if (listener != null) {
+                listener.onStep(stepCount);
             }
         }
     }

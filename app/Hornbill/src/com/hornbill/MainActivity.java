@@ -34,6 +34,7 @@ public class MainActivity extends Activity implements StepListener, ServiceConne
         mStepCountText = (TextView) findViewById(R.id.step_count_text);
         mBindBtn = (Button) findViewById(R.id.btn_bind);
         mBindBtn.setOnClickListener(this);
+        findViewById(R.id.btn_clear_step).setOnClickListener(this);
         mBindState = 0;
     }
 
@@ -72,7 +73,6 @@ public class MainActivity extends Activity implements StepListener, ServiceConne
         switch (id) {
         case R.id.btn_bind: {
             if (mBindState == 0) {
-                mStepManager.resetWork();
                 mStepManager.startWork();
                 mStepManager.registListener(this);
                 mBindBtn.setText(this.getResources().getString(R.string.step_count_stop));
@@ -84,6 +84,10 @@ public class MainActivity extends Activity implements StepListener, ServiceConne
                 mBindState = 0;
             }
         }
+            break;
+
+        case R.id.btn_clear_step:
+            mStepManager.resetWork();
             break;
         }
     }
