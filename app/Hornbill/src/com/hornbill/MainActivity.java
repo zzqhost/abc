@@ -73,8 +73,8 @@ public class MainActivity extends Activity implements StepListener, ServiceConne
         switch (id) {
         case R.id.btn_bind: {
             if (mBindState == 0) {
-                mStepManager.startWork();
                 mStepManager.registListener(this);
+                mStepManager.startWork();
                 mBindBtn.setText(this.getResources().getString(R.string.step_count_stop));
                 mBindState = 1;
             } else {

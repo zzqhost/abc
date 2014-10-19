@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.os.PowerManager;
 
 import com.hornbill.stepcounter.StepCounter.StepListener;
 
@@ -51,12 +52,10 @@ public class StepManager {
         mContext.registerReceiver(mScreenOffReceiver, screenOffFilter);
          //*/
 
-        // 关闭自动锁屏? 
-        /*
+        // 关闭自动锁屏 
         PowerManager manager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = manager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "");
         wakeLock.acquire();
-        */
     }
 
     public void stopWork() {
@@ -64,10 +63,9 @@ public class StepManager {
         mStepCounter.unregisterSensor();
         mIsWorking = false;
 
-        /*
         PowerManager manager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = manager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "");
-        wakeLock.release(); //*/
+        wakeLock.release();
     }
 
     // 清零计数器
